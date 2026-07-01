@@ -45,11 +45,12 @@ Copy the `3.0` configuration folder from the extracted PhotoGIMP directory to yo
 
 ### 3. Change the Application Icon
 
-1. Copy the `photogimp.png` file to a stable directory:
+1. Copy the `photogimp.png` file from the repository `assets/` folder to a stable directory:
    ```bash
    mkdir -p ~/Pictures/Assets/apps/PhotoGimp/
-   cp /path/to/PhotoGIMP-linux/.local/share/icons/hicolor/photogimp.png ~/Pictures/Assets/apps/PhotoGimp/photogimp.png
+   cp assets/photogimp.png ~/Pictures/Assets/apps/PhotoGimp/photogimp.png
    ```
+   (Alternatively, if you extracted the PhotoGIMP zip manually, the icon is located at `/path/to/PhotoGIMP-linux/.local/share/icons/hicolor/photogimp.png`).
 2. Open KDE Menu Editor (available in KDE Plasma on Fedora, launchable via KRunner).
 3. Find the **GNU Image Manipulation Program** entry under Graphics.
 4. Click the icon, select **Browse**, and point it to:

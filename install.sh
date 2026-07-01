@@ -124,13 +124,17 @@ main() {
 
     # 6. Extract and copy application icon
     local source_icon="${photogimp_dir}/.local/share/icons/hicolor/photogimp.png"
+    if [[ ! -f "$source_icon" && -f "${SCRIPT_DIR}/assets/photogimp.png" ]]; then
+        source_icon="${SCRIPT_DIR}/assets/photogimp.png"
+    fi
+
     if [[ -f "$source_icon" ]]; then
         log "Creating assets directory: ${ICON_DEST_DIR}"
         mkdir -p "$ICON_DEST_DIR"
         log "Copying icon to: ${ICON_DEST_DIR}/photogimp.png"
         cp "$source_icon" "${ICON_DEST_DIR}/photogimp.png"
     else
-        log "Warning: PhotoGIMP icon not found at ${source_icon}. Skipping icon copy."
+        log "Warning: PhotoGIMP icon not found at ${source_icon} or in repository assets. Skipping icon copy."
     fi
 
     # 7. Copy custom splash screen if present in script assets
