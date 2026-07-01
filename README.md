@@ -1,6 +1,6 @@
 # PhotoGIMP on GIMP 3.2 (Flatpak/Linux)
 
-This repository provides instructions and an automated script to configure PhotoGIMP on GIMP 3.2.4 (Flatpak or native package managers) on Linux distros including Fedora 44.
+This repository provides instructions and an automated script to configure PhotoGIMP on GIMP 3.2.4 (Flatpak or native package managers). This configuration was developed and tested on Fedora 44, but it is compatible with other Linux distributions.
 
 The default configuration scripts in the Diolinux PhotoGIMP repository include launcher configurations that can crash modern Flatpak versions of GIMP. This project isolates the user interface modifications from the desktop integration files, preventing application crashes.
 
@@ -15,7 +15,7 @@ The default configuration scripts in the Diolinux PhotoGIMP repository include l
    ./install.sh
    ```
 
-The script backs up your existing configuration folder to `3.2_old.zip`, copies the PhotoGIMP UI files, configures the GIMP configuration folder, and automatically copies the custom splash screen image (`assets/splash-screen-brush-2026.png`) to your GIMP splashes directory.
+The script backs up your existing `3.2` configuration folder to `3.2_old.zip`, copies the PhotoGIMP configuration to the target directory as `3.0` (which triggers GIMP's automatic configuration migration to `3.2` on startup), and copies the custom splash screen image (`assets/splash-screen-brush-2026.png`) to GIMP's splashes directory.
 
 By default, the script looks for `~/Downloads/PhotoGIMP-linux` or `~/Downloads/PhotoGIMP-linux.zip`. You can specify a custom folder path using the `-d` or `--dir` option:
 ```bash
@@ -41,7 +41,7 @@ rm -rf 3.2/
 
 ### 2. Apply Config
 
-Copy the `3.0` configuration folder from the extracted PhotoGIMP directory to your GIMP configuration directory, and rename it to `3.2`.
+Copy the `3.0` configuration folder from the extracted PhotoGIMP directory to your target GIMP configuration directory *without* renaming it. GIMP 3.2 must be started to trigger the automatic migration process, which reads the `3.0` folder and creates a new, populated `3.2` directory containing the PhotoGIMP layout.
 
 ### 3. Change the Application Icon
 

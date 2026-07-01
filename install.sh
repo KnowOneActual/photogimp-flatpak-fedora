@@ -98,27 +98,31 @@ main() {
     # 2. Locate destination GIMP config directory
     local dest_gimp_dir
     dest_gimp_dir=$(find_gimp_config_dir)
-    local dest_config="${dest_gimp_dir}/3.2"
+    local dest_32="${dest_gimp_dir}/3.2"
+    local dest_30="${dest_gimp_dir}/3.0"
 
     log "Using GIMP configuration root: ${dest_gimp_dir}"
 
-    # 3. Backup existing 3.2 configuration if present
-    if [[ -d "$dest_config" ]]; then
+    # 3. Backup and clean up existing 3.2 configuration if present
+    if [[ -d "$dest_32" ]]; then
         local backup_zip="${dest_gimp_dir}/3.2_old.zip"
-        log "Existing configuration folder found at ${dest_config}. Backing up to ${backup_zip}..."
-        
-        # Move to GIMP config dir to keep paths inside the zip relative
+        log "Existing 3.2 configuration folder found at ${dest_32}. Backing up to ${backup_zip}..."
         (cd "$dest_gimp_dir" && zip -r -q "3.2_old.zip" "3.2")
-        
-        log "Deleting existing ${dest_config} folder..."
-        rm -rf "$dest_config"
+        log "Deleting existing 3.2 folder..."
+        rm -rf "$dest_32"
     fi
 
-    # 4. Copy PhotoGIMP 3.0 configuration as 3.2
-    log "Copying PhotoGIMP 3.0 configuration to ${dest_config}..."
-    cp -r "$source_config" "$dest_config"
+    # 4. Remove any existing 3.0 configuration to prevent copy conflicts
+    if [[ -d "$dest_30" ]]; then
+        log "Removing existing 3.0 configuration folder at ${dest_30}..."
+        rm -rf "$dest_30"
+    fi
 
-    # 5. Extract and copy application icon
+    # 5. Copy PhotoGIMP 3.0 configuration as 3.0 (GIMP 3.2 migrates it on startup)
+    log "Copying PhotoGIMP configuration to ${dest_30}..."
+    cp -r "$source_config" "$dest_30"
+
+    # 6. Extract and copy application icon
     local source_icon="${photogimp_dir}/.local/share/icons/hicolor/photogimp.png"
     if [[ -f "$source_icon" ]]; then
         log "Creating assets directory: ${ICON_DEST_DIR}"
@@ -129,11 +133,11 @@ main() {
         log "Warning: PhotoGIMP icon not found at ${source_icon}. Skipping icon copy."
     fi
 
-    # 6. Copy custom splash screen if present in script assets
+    # 7. Copy custom splash screen if present in script assets
     local source_splash="${SCRIPT_DIR}/assets/splash-screen-brush-2026.png"
     if [[ -f "$source_splash" ]]; then
-        local splash_dest_dir="${dest_config}/splashes"
-        log "Creating splashes directory: ${splash_dest_dir}"
+        local splash_dest_dir="${dest_30}/splashes"
+        log "Creating splashes directory in 3.0 config: ${splash_dest_dir}"
         mkdir -p "$splash_dest_dir"
         log "Copying custom splash screen to: ${splash_dest_dir}/splash-screen-brush-2026.png"
         cp "$source_splash" "${splash_dest_dir}/splash-screen-brush-2026.png"
@@ -154,14 +158,14 @@ main() {
     echo ""
     echo "2. Splash Screen Customization:"
     if [[ -f "$source_splash" ]]; then
-        echo "   - The custom splash screen was copied to:"
-        echo "     ${dest_config}/splashes/splash-screen-brush-2026.png"
+        echo "   - The custom splash screen was copied to the 3.0 config directory."
+        echo "     GIMP will automatically migrate this to ${dest_32}/splashes/ on startup."
     else
         echo "   - Create the splashes directory if it does not exist:"
-        echo "     mkdir -p ${dest_config}/splashes"
+        echo "     mkdir -p ${dest_30}/splashes"
         echo "   - Download a custom splash screen and place it inside that folder."
     fi
-    echo "   - GIMP rotates between multiple files in this directory randomly on startup."
+    echo "   - Note: GIMP must be launched to trigger the migration from 3.0 to 3.2 configuration."
     echo "=========================================================="
 }
 
