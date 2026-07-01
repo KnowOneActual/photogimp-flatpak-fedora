@@ -15,6 +15,8 @@ The default configuration scripts in the Diolinux PhotoGIMP repository include l
    ./install.sh
    ```
 
+The script backs up your existing configuration folder to `3.2_old.zip`, copies the PhotoGIMP UI files, configures the GIMP configuration folder, and automatically copies the custom splash screen image (`assets/splash-screen-brush-2026.png`) to your GIMP splashes directory.
+
 By default, the script looks for `~/Downloads/PhotoGIMP-linux` or `~/Downloads/PhotoGIMP-linux.zip`. You can specify a custom folder path using the `-d` or `--dir` option:
 ```bash
 ./install.sh --dir /path/to/extracted/PhotoGIMP-linux
@@ -56,7 +58,14 @@ Copy the `3.0` configuration folder from the extracted PhotoGIMP directory to yo
 
 ### 4. Custom Splash Screen
 
-To add a custom splash screen:
-1. Save your custom splash image to:
-   `~/.config/GIMP/3.2/splashes/` (or your Flatpak directory equivalent)
-2. GIMP reads the directory on startup. If multiple images are present, GIMP rotates between them randomly. Remove any default splash images in the directory to force your custom splash.
+To add the custom splash screen included in this repository:
+1. Create the `splashes` directory:
+   ```bash
+   mkdir -p ~/.config/GIMP/3.2/splashes/  # Use your GIMP configuration path
+   ```
+2. Copy the splash image from the `assets` folder:
+   ```bash
+   cp assets/splash-screen-brush-2026.png ~/.config/GIMP/3.2/splashes/
+   ```
+
+GIMP reads the `splashes` directory on startup. If multiple images are present, GIMP rotates between them randomly. Remove any default splash images in that folder to force GIMP to show only your new splash screen.

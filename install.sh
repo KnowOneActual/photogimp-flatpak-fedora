@@ -5,6 +5,7 @@ set -euo pipefail
 # Copies GIMP 3.0 PhotoGIMP configurations to GIMP 3.2 paths and installs assets.
 
 readonly SCRIPT_NAME=$(basename "$0")
+readonly SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 readonly DOWNLOADS_DIR="${HOME}/Downloads"
 readonly PHOTOGIMP_EXTRACTED="${DOWNLOADS_DIR}/PhotoGIMP-linux"
 readonly PHOTOGIMP_ZIP="${DOWNLOADS_DIR}/PhotoGIMP-linux.zip"
@@ -128,6 +129,16 @@ main() {
         log "Warning: PhotoGIMP icon not found at ${source_icon}. Skipping icon copy."
     fi
 
+    # 6. Copy custom splash screen if present in script assets
+    local source_splash="${SCRIPT_DIR}/assets/splash-screen-brush-2026.png"
+    if [[ -f "$source_splash" ]]; then
+        local splash_dest_dir="${dest_config}/splashes"
+        log "Creating splashes directory: ${splash_dest_dir}"
+        mkdir -p "$splash_dest_dir"
+        log "Copying custom splash screen to: ${splash_dest_dir}/splash-screen-brush-2026.png"
+        cp "$source_splash" "${splash_dest_dir}/splash-screen-brush-2026.png"
+    fi
+
     log "PhotoGIMP configuration files applied."
     echo ""
     echo "=========================================================="
@@ -142,9 +153,14 @@ main() {
     echo "   - Save changes"
     echo ""
     echo "2. Splash Screen Customization:"
-    echo "   - Create the splashes directory if it does not exist:"
-    echo "     mkdir -p ${dest_config}/splashes"
-    echo "   - Download a custom splash screen and place it inside that folder."
+    if [[ -f "$source_splash" ]]; then
+        echo "   - The custom splash screen was copied to:"
+        echo "     ${dest_config}/splashes/splash-screen-brush-2026.png"
+    else
+        echo "   - Create the splashes directory if it does not exist:"
+        echo "     mkdir -p ${dest_config}/splashes"
+        echo "   - Download a custom splash screen and place it inside that folder."
+    fi
     echo "   - GIMP rotates between multiple files in this directory randomly on startup."
     echo "=========================================================="
 }
