@@ -4,8 +4,10 @@ set -euo pipefail
 # photogimp-flatpak-fedora installer script
 # Copies GIMP 3.0 PhotoGIMP configurations to GIMP 3.2 paths and installs assets.
 
-readonly SCRIPT_NAME=$(basename "$0")
-readonly SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+SCRIPT_NAME=$(basename "$0")
+readonly SCRIPT_NAME
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+readonly SCRIPT_DIR
 readonly DOWNLOADS_DIR="${HOME}/Downloads"
 readonly PHOTOGIMP_EXTRACTED="${DOWNLOADS_DIR}/PhotoGIMP-linux"
 readonly PHOTOGIMP_ZIP="${DOWNLOADS_DIR}/PhotoGIMP-linux.zip"
