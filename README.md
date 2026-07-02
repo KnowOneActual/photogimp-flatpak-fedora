@@ -3,7 +3,7 @@
 [![ShellCheck](https://github.com/KnowOneActual/photogimp-flatpak-fedora/actions/workflows/shellcheck.yml/badge.svg)](https://github.com/KnowOneActual/photogimp-flatpak-fedora/actions/workflows/shellcheck.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A simple script and setup to get PhotoGIMP working on GIMP 3.2 (Flatpak or native packages). 
+A simple script and setup to get PhotoGIMP theme working on GNU Image Manipulation Program (GIMP 3.2) (Flatpak or native packages). 
 
 This was put together and tested on Fedora 44. It should work on other Linux distros too, but hasn't been tested on them yet.
 
