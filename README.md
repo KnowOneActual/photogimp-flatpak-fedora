@@ -30,18 +30,30 @@ Make sure you have these installed:
    ./install.sh
    ```
 
-By default, the script looks for `~/Downloads/PhotoGIMP-linux` or `~/Downloads/PhotoGIMP-linux.zip`. If you put it somewhere else, point to it with:
-```bash
-./install.sh --dir /path/to/extracted/PhotoGIMP-linux
-```
+### Command Options:
+- `-d, --dir PATH`: Specify path to the extracted `PhotoGIMP-linux` folder.
+  ```bash
+  ./install.sh --dir /path/to/extracted/PhotoGIMP-linux
+  ```
+- `-s, --splash STYLE`: Choose GIMP splash screen style. Options:
+  - `brush`: Brush effect style (`splash-screen-brush-2026.png`, default)
+  - `glassmorphic`: Glassmorphic gradient style (`splash-screen-glassmorphic-gradient_v3.png`)
+  - `classic`: Clean / classic style (`splash-screen-2026-v3.png`)
+  - `all`: Copy all of them (GIMP will select one at random on startup!)
+  - `none`: Do not install any custom splash screen.
+  
+  *If run in an interactive terminal and no style is specified, the script will prompt you.*
+- `--no-desktop-icon`: Disable automatic desktop icon override.
 
 ---
 
 ## 🛠️ How it works
-1. **Backup**: It zips up your current GIMP `3.2` configuration folder and saves it as `3.2_old.zip` in your GIMP config directory.
-2. **Copy**: It copies the PhotoGIMP layout to a `3.0` folder.
-3. **Migrate**: The next time you open GIMP 3.2, it will notice the `3.0` directory and safely migrate the settings to `3.2` automatically.
-4. **Assets**: It places the application icon in `~/Pictures/Assets/apps/PhotoGimp/` and copies the custom splash screen to GIMP's splashes directory.
+1. **Validation**: It checks for required dependencies (`zip`, `unzip`) and warns if GIMP 3.2 is not detected.
+2. **Backup**: It zips up your current GIMP `3.2` configuration folder and saves it as `3.2_old.zip` in your GIMP config directory.
+3. **Copy**: It copies the PhotoGIMP layout to a `3.0` folder.
+4. **Migrate**: The next time you open GIMP 3.2, it will notice the `3.0` directory and safely migrate the settings to `3.2` automatically.
+5. **Assets & Icon Override**: It copies the application icon to `~/Pictures/Assets/apps/PhotoGimp/` and automatically attempts to set it in your local desktop launcher (`~/.local/share/applications/org.gimp.GIMP.desktop` or native equivalent).
+6. **Splash Screen**: It copies the selected custom splash screen style(s) into GIMP's splashes directory.
 
 ---
 
@@ -78,18 +90,22 @@ Copy the `3.0` folder from the extracted PhotoGIMP ZIP into your GIMP config dir
    mkdir -p ~/Pictures/Assets/apps/PhotoGimp/
    cp assets/photogimp.png ~/Pictures/Assets/apps/PhotoGimp/photogimp.png
    ```
-2. Open **KDE Menu Editor** (or your desktop launcher editor).
-3. Find **GNU Image Manipulation Program** under **Graphics**.
-4. Set the icon to: `~/Pictures/Assets/apps/PhotoGimp/photogimp.png` and save.
+2. **Automatic**: The script will try to automatically duplicate and update the desktop entry to point to this path.
+3. **Manual**: If using a custom desktop setup, you can manually override GIMP's icon:
+   - **GNOME / general override file**: Copy GIMP's `.desktop` file to `~/.local/share/applications/` and edit the `Icon=` line:
+     ```text
+     Icon=/home/YOUR_USERNAME/Pictures/Assets/apps/PhotoGimp/photogimp.png
+     ```
+   - **KDE Menu Editor**: Open KDE Menu Editor, select "GNU Image Manipulation Program" in Graphics, and choose the path above as the application icon.
 
 ### 4. Custom splash screen
 1. Create GIMP's splashes directory:
    ```bash
    mkdir -p ~/.config/GIMP/3.2/splashes/
    ```
-2. Copy the splash screen image:
+2. Copy your desired splash screen image(s) (e.g. `splash-screen-glassmorphic-gradient_v3.png`):
    ```bash
-   cp assets/splash-screen-brush-2026.png ~/.config/GIMP/3.2/splashes/
+   cp assets/splash-screen-glassmorphic-gradient_v3.png ~/.config/GIMP/3.2/splashes/
    ```
 
 ---
