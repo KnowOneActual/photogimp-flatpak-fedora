@@ -5,10 +5,10 @@
 
 A simple script and setup to get PhotoGIMP theme working on GNU Image Manipulation Program (GIMP 3.2) (Flatpak or native packages). 
 
-This was put together and tested on Fedora 44. It should work on other Linux distros too, but hasn't been tested on them yet.
+I put this together and tested on Fedora 44. It should work on other Linux distros too, but hasn't been tested on them yet.
 
 ### What is this for?
-The official Diolinux PhotoGIMP installer has desktop shortcuts that crash newer Flatpak versions of GIMP. This fixes that by copying only the UI configuration files and leaving the desktop files alone. You get the Photoshop-style layout without the app crashes.
+The official [Diolinux PhotoGIMP](https://github.com/Diolinux/PhotoGIMP) installer has desktop shortcuts that crash newer Flatpak versions of GIMP. This fixes that by copying only the UI configuration files and leaving the desktop files alone. You get the Photoshop-style layout without the app crashes.
 
 ---
 
@@ -53,7 +53,7 @@ Make sure you have these installed:
 3. **Copy**: It copies the PhotoGIMP layout to a `3.0` folder.
 4. **Migrate**: The next time you open GIMP 3.2, it will notice the `3.0` directory and safely migrate the settings to `3.2` automatically.
 5. **Assets & Icon Override**: It copies the application icon to `~/Pictures/Assets/apps/PhotoGimp/` and automatically attempts to set it in your local desktop launcher (`~/.local/share/applications/org.gimp.GIMP.desktop` or native equivalent).
-6. **Splash Screen**: It copies the selected custom splash screen style(s) into GIMP's splashes directory.
+6. **Splash Screen**: It copies the selected custom splash screen style(s) into GIMP's splashes directory. The splash image that is included with Diolinux was a little to busy for my liking.
 
 ---
 
