@@ -33,6 +33,15 @@ Make sure you have these installed:
    chmod +x install.sh
    ./install.sh
    ```
+4. **Clean up configuration (Recommended)**:
+   - Launch GIMP 3.2 to trigger the automatic settings migration.
+   - Once GIMP is running with the new theme, close GIMP.
+   - Navigate to your GIMP configuration directory, back up the `3.0` folder to a zip file (optional), and delete the `3.0` directory to ensure GIMP loads smoother:
+     ```bash
+     cd ~/.config/GIMP  # Or ~/.var/app/org.gimp.GIMP/config/GIMP/ for Flatpak
+     zip -r 3.0_backup.zip 3.0/  # optional backup
+     rm -rf 3.0/
+     ```
 
 ### Command Options:
 - `-d, --dir PATH`: Specify path to the extracted `PhotoGIMP-linux` folder.
@@ -56,8 +65,9 @@ Make sure you have these installed:
 2. **Backup**: It zips up your current GIMP `3.2` configuration folder and saves it as `3.2_old.zip` in your GIMP config directory.
 3. **Copy**: It copies the PhotoGIMP layout to a `3.0` folder.
 4. **Migrate**: The next time you open GIMP 3.2, it will notice the `3.0` directory and safely migrate the settings to `3.2` automatically.
-5. **Assets & Icon Override**: It copies the application icon to `~/Pictures/Assets/apps/PhotoGimp/` and automatically attempts to set it in your local desktop launcher (`~/.local/share/applications/org.gimp.GIMP.desktop` or native equivalent).
-6. **Splash Screen**: It copies the selected custom splash screen style(s) into GIMP's splashes directory. The splash image that is included with Diolinux was a little to busy for my liking.
+5. **Cleanup (Post-Launch)**: Once migration is complete, the `3.0` folder is no longer needed. Zipping and deleting it helps GIMP load smoother and avoids redundancy.
+6. **Assets & Icon Override**: It copies the application icon to `~/Pictures/Assets/apps/PhotoGimp/` and automatically attempts to set it in your local desktop launcher (`~/.local/share/applications/org.gimp.GIMP.desktop` or native equivalent).
+7. **Splash Screen**: It copies the selected custom splash screen style(s) into GIMP's splashes directory. The splash image that is included with Diolinux was a little to busy for my liking.
 
 ---
 
@@ -85,8 +95,15 @@ zip -r 3.2_old.zip 3.2/
 rm -rf 3.2/
 ```
 
-### 2. Copy the config
-Copy the `3.0` folder from the extracted PhotoGIMP ZIP into your GIMP config directory. Keep the folder name as `3.0`. Start GIMP to let it migrate the settings to a new `3.2` folder.
+### 2. Copy and Migrate the config
+1. Copy the `3.0` folder from the extracted PhotoGIMP ZIP into your GIMP config directory. Keep the folder name as `3.0`.
+2. Start GIMP to let it automatically migrate the settings to a new `3.2` folder.
+3. Once migration is complete and GIMP is running with the new theme, close GIMP.
+4. Clean up by zipping (optional) and deleting the obsolete `3.0` folder to help GIMP load smoother:
+   ```bash
+   zip -r 3.0_backup.zip 3.0/  # optional backup
+   rm -rf 3.0/
+   ```
 
 ### 3. Change the app icon
 1. Copy the icon file:

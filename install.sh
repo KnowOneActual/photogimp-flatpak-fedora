@@ -370,6 +370,12 @@ main() {
         echo "   - No custom splash screen was installed."
     fi
     echo "   - Note: GIMP must be launched to trigger the migration from 3.0 to 3.2 configuration."
+    echo ""
+    echo "3. Post-Migration Cleanup (Recommended):"
+    echo "   - Once GIMP has successfully launched and migrated the layout to 3.2, close GIMP."
+    echo "   - Zip and delete the obsolete 3.0 directory to make GIMP load smoother."
+    echo "   - Command (Optional backup & delete):"
+    echo "     (cd \"${dest_gimp_dir}\" && zip -r 3.0_backup.zip 3.0 && rm -rf 3.0)"
     echo "=========================================================="
 }
 
