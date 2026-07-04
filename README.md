@@ -28,8 +28,10 @@ Make sure you have these installed:
 
 1. Install GIMP 3.2 and open it once so it creates its config folders.
 2. Download the PhotoGIMP Linux ZIP from the [Diolinux PhotoGIMP repo](https://github.com/Diolinux/PhotoGIMP).
-3. Clone this repo and run the script:
+3. Clone this repository and run the installer script:
    ```bash
+   git clone https://github.com/KnowOneActual/photogimp-flatpak-fedora.git
+   cd photogimp-flatpak-fedora
    chmod +x install.sh
    ./install.sh
    ```
