@@ -7,6 +7,10 @@ A simple script and setup to get PhotoGIMP theme working on GNU Image Manipulati
 
 I put this together and tested on Fedora 44. It should work on other Linux distros too, but hasn't been tested on them yet.
 
+<p align="center">
+  <img src="assets/demo/photogimp_demo_v5.gif" alt="PhotoGIMP Linux Demo" width="800">
+</p>
+
 ### What is this for?
 The official [Diolinux PhotoGIMP](https://github.com/Diolinux/PhotoGIMP) installer has desktop shortcuts that crash newer Flatpak versions of GIMP. This fixes that by copying only the UI configuration files and leaving the desktop files alone. You get the Photoshop-style layout without the app crashes.
 
