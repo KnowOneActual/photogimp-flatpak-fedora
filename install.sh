@@ -11,7 +11,7 @@ readonly SCRIPT_DIR
 readonly DOWNLOADS_DIR="${HOME}/Downloads"
 readonly PHOTOGIMP_EXTRACTED="${DOWNLOADS_DIR}/PhotoGIMP-linux"
 readonly PHOTOGIMP_ZIP="${DOWNLOADS_DIR}/PhotoGIMP-linux.zip"
-readonly ICON_DEST_DIR="${HOME}/Pictures/Assets/apps/PhotoGimp"
+ICON_DEST_DIR="${HOME}/Pictures/Assets/apps/PhotoGimp"
 
 log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"
@@ -31,6 +31,8 @@ Options:
     -s, --splash STYLE  Specify the GIMP splash screen style to install.
                         Styles: brush, glassmorphic, classic, all, none.
                         (default: brush)
+    -i, --icon-dir PATH Specify the path where the PhotoGIMP app icon should be saved.
+                        (default: ~/Pictures/Assets/apps/PhotoGimp)
     --no-desktop-icon   Do not attempt to automatically create a desktop icon override.
 EOF
 }
@@ -180,6 +182,13 @@ main() {
                     error "Splash style required after -s/--splash"
                 fi
                 splash_style="$2"
+                shift 2
+                ;;
+            -i|--icon-dir)
+                if [[ -z "${2:-}" ]]; then
+                    error "Icon directory path required after -i/--icon-dir"
+                fi
+                ICON_DEST_DIR="$2"
                 shift 2
                 ;;
             --no-desktop-icon)

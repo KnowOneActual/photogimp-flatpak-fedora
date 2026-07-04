@@ -58,6 +58,10 @@ Make sure you have these installed:
   - `none`: Do not install any custom splash screen.
   
   *If run in an interactive terminal and no style is specified, the script will prompt you.*
+- `-i, --icon-dir PATH`: Specify the directory path where the PhotoGIMP app icon will be saved (default: `~/Pictures/Assets/apps/PhotoGimp`).
+  ```bash
+  ./install.sh --icon-dir ~/.local/share/icons/PhotoGimp
+  ```
 - `--no-desktop-icon`: Disable automatic desktop icon override.
 
 ---
@@ -83,6 +87,58 @@ If you want to remove PhotoGIMP and go back to your old GIMP settings:
    ```bash
    rm -rf 3.2 3.0
    unzip -q 3.2_old.zip
+   ```
+
+---
+
+## 💡 Tips & Customizations
+
+### Why is the app icon saved in `~/Pictures/Assets/apps/PhotoGimp` by default?
+Saving assets in a dedicated folder like `~/Pictures/Assets/` is a convenient way to organize custom assets so they are easily backed up, syncable across devices, and preserved for future system redeployments. 
+
+However, if you prefer not to use this location, you can customize the icon destination path when running the script using the `-i` or `--icon-dir` option:
+```bash
+./install.sh --icon-dir ~/.local/share/icons/PhotoGimp
+```
+
+### How do I restore my custom settings (shortcuts, brushes, plugins, etc.)?
+When the installer runs, it automatically backs up your existing GIMP configuration folder into a file called `3.2_old.zip` located in GIMP's config directory.
+
+If you want to restore specific custom settings without completely overwriting the PhotoGIMP layout, you can selectively copy files from that backup:
+
+1. **Locate your backup file**:
+   - **Flatpak**: `~/.var/app/org.gimp.GIMP/config/GIMP/3.2_old.zip` (or `~/.config/GIMP/3.2_old.zip` on Fedora)
+   - **Native**: `~/.config/GIMP/3.2_old.zip`
+2. **Extract the backup to a temporary folder**:
+   ```bash
+   mkdir -p /tmp/gimp_old
+   unzip ~/.config/GIMP/3.2_old.zip -d /tmp/gimp_old/  # adjust zip path if using Flatpak
+   ```
+3. **Copy the desired settings back to your new GIMP 3.2 configuration**:
+   - **Custom Brushes**:
+     ```bash
+     cp -r /tmp/gimp_old/3.2/brushes/* ~/.config/GIMP/3.2/brushes/
+     ```
+   - **Keyboard Shortcuts / Menu entries**:
+     ```bash
+     cp /tmp/gimp_old/3.2/menurc ~/.config/GIMP/3.2/menurc
+     ```
+   - **Custom Plug-ins**:
+     ```bash
+     cp -r /tmp/gimp_old/3.2/plug-ins/* ~/.config/GIMP/3.2/plug-ins/
+     ```
+   - **Custom Scripts**:
+     ```bash
+     cp -r /tmp/gimp_old/3.2/scripts/* ~/.config/GIMP/3.2/scripts/
+     ```
+   - **Custom Window Layout / Session settings**:
+     ```bash
+     cp /tmp/gimp_old/3.2/sessionrc ~/.config/GIMP/3.2/sessionrc
+     ```
+4. **Restart GIMP** for the restored settings to take effect.
+5. **Clean up**:
+   ```bash
+   rm -rf /tmp/gimp_old
    ```
 
 ---
@@ -130,6 +186,10 @@ rm -rf 3.2/
    ```bash
    cp assets/splash-screen-glassmorphic-gradient_v3.png ~/.config/GIMP/3.2/splashes/
    ```
+
+## ❤️ Community & Feedback
+
+A huge thank you to everyone who has submitted issues, asked questions, and provided valuable feedback! Your input has helped improve this installer, making it more robust and flexible for everyone. If you have suggestions or encounter any issues, please feel free to open an issue or submit a pull request!
 
 ---
 
