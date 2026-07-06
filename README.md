@@ -8,7 +8,7 @@ A simple script and setup to get PhotoGIMP theme working on GNU Image Manipulati
 I put this together and tested on Fedora 44. It should work on other Linux distros too, but hasn't been tested on them yet.
 
 <p align="center">
-  <img src="assets/demo/photogimp_demo_v7.gif" alt="PhotoGIMP Linux Demo" width="800">
+  <img src="assets/demo/photogimp_demo_v8.gif" alt="PhotoGIMP Linux Demo" width="800">
 </p>
 
 ### What is this for?
